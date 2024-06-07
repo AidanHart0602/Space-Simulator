@@ -4,11 +4,31 @@ using UnityEngine;
 using Cinemachine;
 public class CameraBehavior : MonoBehaviour
 {
-    private int _camNum = 0;
+    [SerializeField]
+    private GameObject _instructionText;
+    
+    [SerializeField]
+    private GameObject _startUpDirector;
+    
+    [SerializeField]
+    private GameObject _cutSceneDirector;
+
+    private int _counter = 5;
+
+    [SerializeField]
+    private float _timer;
+
+    private bool _cutsceneActive = false;
+
     [SerializeField]
     private CinemachineVirtualCamera _cockpitCam;
+    
     [SerializeField]
     private CinemachineVirtualCamera _thirdPersonCam;
+
+    private int _camNum = 0;
+
+
 
     // Update is called once per frame
     void Update()
@@ -16,6 +36,24 @@ public class CameraBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             CameraSwap();
+            _instructionText.SetActive(false);
+        }
+
+        if (Input.anyKeyDown)
+        {
+            _timer = 0;
+            EndCutscene();
+        }
+
+        if (!Input.anyKeyDown)
+        {
+            _timer += Time.deltaTime;
+            if (_counter < _timer && _cutsceneActive == false)
+            {
+                Debug.Log("Starting Scene");
+                StartCutscene();
+                _cutsceneActive = true;
+            }
         }
     }
 
@@ -42,5 +80,24 @@ public class CameraBehavior : MonoBehaviour
             _camNum = 0;
             return;
         }
+    }
+    
+    private void StartCutscene()
+    {
+        _startUpDirector.SetActive(true);
+    }
+
+    public void TransitionToCinematic()
+    {
+        _startUpDirector.SetActive(false);
+        _cutSceneDirector.SetActive(true);
+    }
+
+    private void EndCutscene() 
+    {
+        _startUpDirector.SetActive(false);
+        _cutSceneDirector.SetActive(false);
+        _timer = 0;
+        _cutsceneActive = false;
     }
 }
