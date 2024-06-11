@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class UIBehavior : MonoBehaviour
 {
     [SerializeField]
@@ -45,4 +46,15 @@ public class UIBehavior : MonoBehaviour
         _buttons.SetActive(true);
         _instructionsText.SetActive(true);
     }
+
+    public void DisableUI()
+    {
+        _buttons.SetActive(false);
+        _instructionsText.SetActive(false);
+    }
+
+    public void RetryButton()
+    {
+        SceneManager.LoadScene(0);
+    }    
 }
