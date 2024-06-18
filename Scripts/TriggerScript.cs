@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class TriggerScript : MonoBehaviour
 {
+
     [SerializeField]
     private GameObject _inGameCutsceneDirector;
+
+    private void Start()
+    {
+
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player")) 
