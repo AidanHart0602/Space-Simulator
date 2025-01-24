@@ -46,13 +46,11 @@ public class CameraBehavior : MonoBehaviour
             _timer += Time.deltaTime;
             if (_counter < _timer && _cutsceneActive == false)
             {
-                Debug.Log("Starting Scene");
                 StartCutscene();
                 _cutsceneActive = true;
             }
         }
     }
-
     void CameraSwap()
     {
         if(_camNum == 0)
